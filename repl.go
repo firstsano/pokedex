@@ -10,27 +10,33 @@ import (
 
 func startREPL() {
 	scanner := bufio.NewScanner(os.Stdin)
+	registry := getCommands()
 
 	for {
 		fmt.Print("Pokedex > ")
-		scanned := scanner.Scan()
-		if !scanned {
+		if scanned := scanner.Scan(); !scanned {
 			if err := scanner.Err(); err != nil {
 				log.Fatal(err)
 			}
-			fmt.Println("Successfully exiting...")
-			return
 		}
 
-		input := scanner.Text()
-		words := cleanInput(input)
+		words := cleanInput(scanner.Text())
 		if len(words) == 0 {
 			continue
 		}
 
 		commandName := words[0]
+		command, ok := registry[commandName]
+		if !ok {
+			fmt.Println("Unknown command")
+			continue
+		}
 
-		fmt.Printf("Your command was: %s\n", commandName)
+		err := command.callback()
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			continue
+		}
 	}
 }
 

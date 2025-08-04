@@ -7,6 +7,7 @@
 *.dll
 *.so
 *.dylib
+*.log
 
 # Ignore SQLRC generated files
 internal/database

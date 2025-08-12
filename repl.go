@@ -16,6 +16,12 @@ type configuration struct {
 	prevLocation  *string
 }
 
+type cliCommand struct {
+	name        string
+	description string
+	callback    func(*configuration) error
+}
+
 func startREPL(cfg *configuration) {
 	scanner := bufio.NewScanner(os.Stdin)
 	registry := getCommands()
@@ -52,12 +58,6 @@ func cleanInput(text string) []string {
 	text = strings.ToLower(text)
 
 	return strings.Fields(text)
-}
-
-type cliCommand struct {
-	name        string
-	description string
-	callback    func(*configuration) error
 }
 
 func getCommands() map[string]cliCommand {

@@ -8,9 +8,11 @@ import (
 	"strings"
 
 	"github.com/firstsano/pokedex/internal/pokeapi"
+	"github.com/firstsano/pokedex/internal/pokecache"
 )
 
 type configuration struct {
+	pokecache     pokecache.Cache
 	pokeapiClient pokeapi.Client
 	nextLocation  *string
 	prevLocation  *string

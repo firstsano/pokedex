@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-func commandMapf(cfg *configuration) error {
-	locationsResp, err := cfg.pokeapiClient.ListLocations(cfg.nextLocation)
+func commandMapf(cfg *configuration, _ ...string) error {
+	locationsResp, err := cfg.pokeClient.ListLocations(cfg.nextLocation)
 	if err != nil {
 		return err
 	}
@@ -20,12 +20,12 @@ func commandMapf(cfg *configuration) error {
 	return nil
 }
 
-func commandMapb(cfg *configuration) error {
+func commandMapb(cfg *configuration, _ ...string) error {
 	if cfg.prevLocation == nil {
 		return errors.New("you're on the first page")
 	}
 
-	locationResp, err := cfg.pokeapiClient.ListLocations(cfg.prevLocation)
+	locationResp, err := cfg.pokeClient.ListLocations(cfg.prevLocation)
 	if err != nil {
 		return err
 	}

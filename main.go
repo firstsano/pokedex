@@ -9,7 +9,7 @@ import (
 func main() {
 	pokeClient := pokeapi.NewClient(5*time.Second, 5*time.Minute)
 	cfg := &configuration{
-		pokeapiClient: pokeClient,
+		pokeClient: pokeClient,
 	}
 
 	startREPL(cfg)
@@ -32,4 +32,8 @@ func NewCache(interval time.Duration) Cache {
 
 	return cache
 }
+*/
+/*
+var commandArguments []string равны ли
+commandArguments = []string{}
 */

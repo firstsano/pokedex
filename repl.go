@@ -8,20 +8,18 @@ import (
 	"strings"
 
 	"github.com/firstsano/pokedex/internal/pokeapi"
-	"github.com/firstsano/pokedex/internal/pokecache"
 )
 
 type configuration struct {
-	pokecache     pokecache.Cache
-	pokeapiClient pokeapi.Client
-	nextLocation  *string
-	prevLocation  *string
+	pokeClient   pokeapi.Client
+	nextLocation *string
+	prevLocation *string
 }
 
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*configuration) error
+	callback    func(*configuration, ...string) error
 }
 
 func startREPL(cfg *configuration) {
@@ -42,13 +40,18 @@ func startREPL(cfg *configuration) {
 		}
 
 		commandName := words[0]
+		var commandArguments []string
+		if len(words) > 1 {
+			commandArguments = words[1:]
+		}
+
 		command, ok := registry[commandName]
 		if !ok {
 			fmt.Println("Unknown command")
 			continue
 		}
 
-		err := command.callback(cfg)
+		err := command.callback(cfg, commandArguments...)
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 			continue
@@ -78,6 +81,11 @@ func getCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "Get the previous page of locations",
 			callback:    commandMapb,
+		},
+		"explore": {
+			name:        "explore <location_name>",
+			description: "Explore a location",
+			callback:    commandExplore,
 		},
 		"exit": {
 			name:        "exit",

@@ -14,26 +14,3 @@ func main() {
 
 	startREPL(cfg)
 }
-
-/*
-type Cache struct {
-	mutex  *sync.Mutex
-	values map[string]cacheEntry
-}
-
-// NewCache -
-func NewCache(interval time.Duration) Cache {
-	cache := Cache{
-		mutex:  &sync.Mutex{},
-		values: make(map[string]cacheEntry),
-	}
-	ИЛИ
-	cache := Cache{}
-
-	return cache
-}
-*/
-/*
-var commandArguments []string равны ли
-commandArguments = []string{}
-*/

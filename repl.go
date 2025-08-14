@@ -6,15 +6,7 @@ import (
 	"log"
 	"os"
 	"strings"
-
-	"github.com/firstsano/pokedex/internal/pokeapi"
 )
-
-type configuration struct {
-	pokeClient   pokeapi.Client
-	nextLocation *string
-	prevLocation *string
-}
 
 type cliCommand struct {
 	name        string
@@ -86,6 +78,11 @@ func getCommands() map[string]cliCommand {
 			name:        "explore <location_name>",
 			description: "Explore a location",
 			callback:    commandExplore,
+		},
+		"catch": {
+			name:        "catch <pokemon_name>",
+			description: "Catch a pokemon",
+			callback:    commandCatch,
 		},
 		"exit": {
 			name:        "exit",

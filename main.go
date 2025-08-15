@@ -6,16 +6,8 @@ import (
 	"github.com/firstsano/pokedex/internal/pokeapi"
 )
 
-type Pokemon struct {
-	id             int
-	name           string
-	baseExperience int
-	height         int
-	weight         int
-}
-
 type configuration struct {
-	caughtPokemon map[string]Pokemon
+	caughtPokemon map[string]pokeapi.RespPokemon
 	pokeClient    pokeapi.Client
 	nextLocation  *string
 	prevLocation  *string
@@ -24,7 +16,7 @@ type configuration struct {
 func main() {
 	pokeClient := pokeapi.NewClient(5*time.Second, 5*time.Minute)
 	cfg := &configuration{
-		caughtPokemon: make(map[string]Pokemon),
+		caughtPokemon: make(map[string]pokeapi.RespPokemon),
 		pokeClient:    pokeClient,
 	}
 
